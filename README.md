@@ -175,3 +175,42 @@ Your output should resemble the following output:
 +-----------------------------------------------------------------------------+
 ```
 
+### Install VSCODE
+
+[Install VS Code on Linux](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
+
+Run the following script to install the signing key:
+```sh
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -D -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft.gpg
+rm -f microsoft.gpg
+```
+
+Create a /etc/apt/sources.list.d/vscode.sources file with the following contents to add a reference to the upstream package repository:
+
+```sh
+sudo apt install vim 
+sudo vim /etc/apt/sources.list.d/vscode.sources
+```
+/etc/apt/sources.list.d/vscode.sources
+```text
+Types: deb
+URIs: https://packages.microsoft.com/repos/code
+Suites: stable
+Components: main
+Architectures: amd64,arm64,armhf
+Signed-By: /usr/share/keyrings/microsoft.gpg
+```
+
+Lastly, update the package cache and install the package:
+```sh
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code # or code-insiders
+```
+
+
+
+
+
